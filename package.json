@@ -14,7 +14,8 @@
     "eslint": "npx eslint src",
     "eslint:fix": "npx eslint --fix src",
     "seed": "ts-node -r tsconfig-paths/register ./src/seeders",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "deploy": "npm run migration:run && git push heroku main"
   },
   "keywords": [],
   "author": "",
