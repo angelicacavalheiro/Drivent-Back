@@ -4,9 +4,11 @@ if (process.env.NODE_ENV === "production" && process.env.DATABASE_URL.indexOf("s
   process.env.DATABASE_URL += "?sslmode=require";
 }
 
+console.log(process.env.DATABASE_URL);
+
 export default async function connect() {
   const connectionManager = await getConnectionManager();
-    
+
   const connection = connectionManager.create({
     name: "default",
     type: "postgres",

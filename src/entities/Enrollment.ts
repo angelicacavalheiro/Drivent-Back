@@ -23,6 +23,18 @@ export default class Enrollment extends BaseEntity {
   @Column()
   userId: number;
 
+  @Column({ nullable: true })
+  isOnlinePlan: boolean;
+
+  @Column({ nullable: true })
+  hasHotel: boolean;
+
+  @Column({ nullable: true })
+  payentConfirmed: boolean;
+
+  @Column({ nullable: true })
+  roomId: number;
+
   @OneToOne(() => Address, (address) => address.enrollment, { eager: true })
   address: Address;
 
