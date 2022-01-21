@@ -76,7 +76,7 @@ export default class Enrollment extends BaseEntity {
     return await this.findOne({ where: { userId } });
   }
 
-  static async getStatusPaymentWithUserId(userId: number) {
+  static async getPaymentStatusByUserId(userId: number) {
     return await this.findOne({ where: { userId } });
   }
 }

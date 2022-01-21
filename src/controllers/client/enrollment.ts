@@ -17,6 +17,16 @@ export async function getEnrollmentInfos(req: Request, res: Response) {
   if(!enrollmentInfo) {
     return res.sendStatus(httpStatus.NO_CONTENT);
   }
-  
+
   res.send(enrollmentInfo).status(httpStatus.OK);
+}
+
+export async function getPaymentStatusFromEnrollment(req: Request, res: Response) {
+  const paymentStatus = await enrollmentService.getPaymentStatus(req.user.id);
+
+  if(!paymentStatus) {
+    return res.sendStatus(httpStatus.NO_CONTENT);
+  }
+
+  res.send(paymentStatus).status(httpStatus.OK);
 }
