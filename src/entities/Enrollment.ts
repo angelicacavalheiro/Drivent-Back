@@ -1,6 +1,12 @@
 import CpfNotAvailableError from "@/errors/CpfNotAvailable";
 import EnrollmentData from "@/interfaces/enrollment";
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm";
+import {
+  BaseEntity,
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToOne,
+} from "typeorm";
 import Address from "@/entities/Address";
 
 @Entity("enrollments")
@@ -57,10 +63,24 @@ export default class Enrollment extends BaseEntity {
     address.addressDetail = data.address.addressDetail;
   }
 
+  populatePlanInfo(paymentData: EnrollmentData) {
+    this.isOnlinePlan = paymentData.isOnlinePlan;
+    this.hasHotel = paymentData.hasHotel;
+    this.payentConfirmed = paymentData.payentConfirmed;
+  }
+
+  static async setNewPlan(paymentData: EnrollmentData) {
+    const enrollment = await this.findOne({ where: { cpf: paymentData.cpf } });
+
+    enrollment.populatePlanInfo(paymentData);
+
+    await enrollment.save();
+  }
+
   static async createOrUpdate(data: EnrollmentData) {
     let enrollment = await this.findOne({ where: { cpf: data.cpf } });
 
-    if(enrollment && enrollment.userId !== data.userId) {
+    if (enrollment && enrollment.userId !== data.userId) {
       throw new CpfNotAvailableError(data.cpf);
     }
 

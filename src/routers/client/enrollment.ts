@@ -8,7 +8,18 @@ import enrollmentSchema from "@/schemas/enrollmentSchema";
 
 const router = Router();
 
-router.post("/", schemaValidatingMiddleware(enrollmentSchema), controller.saveEnrollmentInfo);
+router.post(
+  "/",
+  schemaValidatingMiddleware(enrollmentSchema),
+  controller.saveEnrollmentInfo
+);
+
 router.get("/", controller.getEnrollmentInfos);
+
+router.post(
+  "/plan",
+  schemaValidatingMiddleware(enrollmentSchema),
+  controller.saveNewPlan
+);
 
 export default router;
