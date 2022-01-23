@@ -70,7 +70,9 @@ export default class Enrollment extends BaseEntity {
   }
 
   static async setNewPlan(paymentData: EnrollmentData) {
-    const enrollment = await this.findOne({ where: { cpf: paymentData.cpf } });
+    const enrollment = await this.findOne({
+      where: { userId: paymentData.userId },
+    });
 
     enrollment.populatePlanInfo(paymentData);
 

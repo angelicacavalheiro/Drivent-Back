@@ -1,7 +1,6 @@
 import joi from "joi";
 
 export default joi.object({
-  id: joi.number(),
   name: joi.string().min(3).required(),
   cpf: joi
     .string()
@@ -29,8 +28,6 @@ export default joi.object({
       state: joi.string().length(2).required(),
       neighborhood: joi.string().required(),
       addressDetail: joi.string().allow(null, ""),
-      enrollmentId: joi.number(),
-      id: joi.number(),
     })
     .required(),
   phone: joi
@@ -39,9 +36,4 @@ export default joi.object({
     .min(14)
     .max(15)
     .required(),
-  isOnlinePlan: joi.boolean().allow(null),
-  hasHotel: joi.boolean().allow(null),
-  payentConfirmed: joi.boolean().allow(null),
-  roomId: joi.string().allow(null, ""),
-  userId: joi.number(),
 });
