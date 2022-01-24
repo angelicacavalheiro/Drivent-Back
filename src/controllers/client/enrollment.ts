@@ -12,11 +12,20 @@ export async function saveEnrollmentInfo(req: Request, res: Response) {
 }
 
 export async function getEnrollmentInfos(req: Request, res: Response) {
-  const enrollmentInfo = await enrollmentService.getEnrollmentWithAddress(req.user.id);
+  const enrollmentInfo = await enrollmentService.getEnrollmentWithAddress(
+    req.user.id
+  );
 
-  if(!enrollmentInfo) {
+  if (!enrollmentInfo) {
     return res.sendStatus(httpStatus.NO_CONTENT);
   }
-  
+
   res.send(enrollmentInfo).status(httpStatus.OK);
+}
+
+export async function saveNewPlan(req: Request, res: Response) {
+  const enrollmentData = req.body as EnrollmentData;
+
+  await enrollmentService.setNewPlan(enrollmentData);
+  res.sendStatus(httpStatus.OK);
 }
