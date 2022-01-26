@@ -1,6 +1,7 @@
 import EnrollmentData from "@/interfaces/enrollment";
 import FakerInterface from "@/interfaces/FakerAPI";
 import { fakerBr } from "js-brasil";
+import dayjs from "dayjs";
 
 export default class FakerAdapter implements FakerInterface {
   generateUserCredentials(): { email: string; password: string; } {
@@ -29,7 +30,7 @@ export default class FakerAdapter implements FakerInterface {
         city: pessoa.endereco.cidade,
         state: pessoa.endereco.estadoSigla,
         neighborhood: pessoa.endereco.bairro,
-        number: pessoa.endereco.numbero,
+        number: pessoa.endereco.numero,
         addressDetail: pessoa.endereco.complemento,
       }
     };
