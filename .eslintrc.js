@@ -15,6 +15,7 @@ module.exports = {
   "plugins": [
     "@typescript-eslint"
   ],
+  "ignorePatterns": ["*.test.ts"],
   "rules": {
     "indent": [
       "error",

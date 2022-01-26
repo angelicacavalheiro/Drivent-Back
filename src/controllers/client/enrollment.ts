@@ -25,6 +25,7 @@ export async function getEnrollmentInfos(req: Request, res: Response) {
 
 export async function saveNewPlan(req: Request, res: Response) {
   const enrollmentData = req.body as EnrollmentData;
+  enrollmentData.userId = req.user.id;
 
   await enrollmentService.setNewPlan(enrollmentData);
   res.sendStatus(httpStatus.OK);
