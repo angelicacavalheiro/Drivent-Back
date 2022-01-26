@@ -12,7 +12,9 @@ import NotFoundError from "@/errors/NotFoundError";
 export default function errorHandlingMiddleware (err: Error, _req: Request, res: Response, _next: NextFunction) {
 
   /* eslint-disable-next-line */
-  console.error(err);
+
+  if(process.env.NODE_ENV !== "test") console.error(err);
+ 
   if (err instanceof InvalidEmailError) {
     return res.status(httpStatus.BAD_REQUEST).send({
       message: err.message
@@ -51,7 +53,7 @@ export default function errorHandlingMiddleware (err: Error, _req: Request, res:
   }
 
   /* eslint-disable-next-line no-console */
-  console.error(err);
+
   res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
     message: "Internal Server Error!"
   });
