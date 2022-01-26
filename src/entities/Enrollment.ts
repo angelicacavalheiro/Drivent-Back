@@ -48,17 +48,7 @@ export default class Enrollment extends BaseEntity {
   address: Address;
 
   @ManyToMany(() => Activities, (activity) => activity.id, { eager: true })
-  @JoinTable({
-    name: "subscribedActivities",
-    joinColumn: {
-      name: "enrollmentId",
-      referencedColumnName: "id",
-    },
-    inverseJoinColumn: {
-      name: "activityId",
-      referencedColumnName: "id",
-    },
-  })
+  @JoinTable()
   activities: Activities[];
 
   populateFromData(data: EnrollmentData) {
