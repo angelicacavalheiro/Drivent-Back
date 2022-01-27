@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
 import Hall from "./Hall";
 import EventDate from "./Date";
 
@@ -28,11 +28,11 @@ export default class Activities extends BaseEntity {
   @Column()
   dateId: number;
 
-  @OneToOne(() => Hall, (hall) => hall.name, { eager: true })
+  @ManyToOne(() => Hall, (hall) => hall.name, { eager: true })
   @JoinColumn()
   hall: Hall;
 
-  @OneToOne(() => EventDate, (date) => date.date, { eager: true })
+  @ManyToOne(() => EventDate, (date) => date.date, { eager: true })
   @JoinColumn()
   date: EventDate;
 
