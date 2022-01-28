@@ -32,12 +32,7 @@ export default class Activities extends BaseEntity {
   @JoinColumn()
   hall: Hall;
 
-  @ManyToOne(() => EventDate, (date) => date.date, { eager: true })
+  @ManyToOne(() => EventDate, (date) => date.date)
   @JoinColumn()
   date: EventDate;
-
-  static async getActivitiesByDate() {
-    const activities = await this.find();
-    return activities;
-  }
 }
