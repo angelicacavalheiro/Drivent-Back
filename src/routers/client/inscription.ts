@@ -4,6 +4,6 @@ import * as controller from "@/controllers/client/inscription";
 
 const router = Router();
 
-router.post("/inscription", controller.postUserInscription);
+router.post("/", controller.postUserInscription);
 
 export default router;

@@ -8,6 +8,7 @@ import {
   OneToOne,
   ManyToMany,
   JoinTable,
+  getRepository
 } from "typeorm";
 import Address from "@/entities/Address";
 import Activities from "./Activity";
@@ -105,9 +106,16 @@ export default class Enrollment extends BaseEntity {
     return await this.findOne({ where: { userId } });
   }
 
-  static async postUserInscription(enrollmentsId: number, activitiesId: number) {
-    const inscription = this.create({ enrollmentsId, activitiesId });
-    await inscription.save();
-    return inscription;
+  static async postUserInscription(enrollmentId: number, activitiesId: number) {
+    //pegar a atividade
+    const enrollment = await this.findOne({ where: { id: enrollmentId } });
+    //pegar atividade
+    const activityRepository = getRepository(Activities);
+    const activity = await activityRepository.findOne({ where: { id: activitiesId } });
+    //
+    enrollment.activities.push(activity);
+    await this.save(enrollment);
+
+    return enrollment;
   }
 }
