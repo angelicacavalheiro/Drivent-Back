@@ -104,4 +104,10 @@ export default class Enrollment extends BaseEntity {
   static async getByUserIdWithAddress(userId: number) {
     return await this.findOne({ where: { userId } });
   }
+
+  static async postUserInscription(enrollmentsId: number, activitiesId: number) {
+    const inscription = this.create({ enrollmentsId, activitiesId });
+    await inscription.save();
+    return inscription;
+  }
 }
