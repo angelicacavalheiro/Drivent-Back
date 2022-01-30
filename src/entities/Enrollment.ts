@@ -107,12 +107,9 @@ export default class Enrollment extends BaseEntity {
   }
 
   static async postUserInscription(enrollmentId: number, activitiesId: number) {
-    //pegar a atividade
     const enrollment = await this.findOne({ where: { id: enrollmentId } });
-    //pegar atividade
     const activityRepository = getRepository(Activities);
     const activity = await activityRepository.findOne({ where: { id: activitiesId } });
-    //
     enrollment.activities.push(activity);
     await this.save(enrollment);
 
