@@ -8,6 +8,7 @@ import {
   OneToOne,
 } from "typeorm";
 import Address from "@/entities/Address";
+import ReserveData from "@/interfaces/reserve";
 
 @Entity("enrollments")
 export default class Enrollment extends BaseEntity {
@@ -96,5 +97,13 @@ export default class Enrollment extends BaseEntity {
 
   static async getByUserIdWithAddress(userId: number) {
     return await this.findOne({ where: { userId } });
+  }
+
+  static async reserveRoom(reserve: ReserveData) {
+    const enrollment = await this.findOne({ where: { cpf: reserve.cpf } });
+
+    enrollment.roomId = reserve.roomId;
+
+    return this.save(enrollment);
   }
 }
