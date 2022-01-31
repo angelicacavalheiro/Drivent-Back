@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, getManager } from "typeorm";
 import Hall from "./Hall";
 import EventDate from "./Date";
 
@@ -35,4 +35,16 @@ export default class Activities extends BaseEntity {
   @ManyToOne(() => EventDate, (date) => date.date)
   @JoinColumn()
   date: EventDate;
+
+  static async updateAvailableCapacity(activitiesId: number) {
+    const decrement = getManager().query(
+      `
+      UPDATE activities
+      SET "availableCapacity" = "availableCapacity"-1
+      WHERE id = $1
+      `,
+      [activitiesId]
+    );
+    return decrement;
+  }
 }

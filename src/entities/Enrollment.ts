@@ -113,6 +113,8 @@ export default class Enrollment extends BaseEntity {
     enrollment.activities.push(activity);
     await this.save(enrollment);
 
+    await Activities.updateAvailableCapacity(activitiesId);
+
     return enrollment;
   }
 }
