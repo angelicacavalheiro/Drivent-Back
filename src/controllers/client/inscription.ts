@@ -4,8 +4,8 @@ import * as service from "@/services/client/inscription";
 
 export async function postUserInscription(req: Request, res: Response) {
   const userInscriptions = await service.postUserInscription(
-    req.body.enrollmentsId,
-    req.body.activitiesId
+    req.body.userId,
+    req.body.activityId
   );
   res.send(userInscriptions);
 }

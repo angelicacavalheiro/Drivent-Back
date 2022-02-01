@@ -106,14 +106,15 @@ export default class Enrollment extends BaseEntity {
     return await this.findOne({ where: { userId } });
   }
 
-  static async postUserInscription(enrollmentId: number, activitiesId: number) {
-    const enrollment = await this.findOne({ where: { id: enrollmentId } });
+  static async postUserInscription(userId: number, activityId: number) {
+    const enrollment = await this.findOne({ where: { userId: userId } });
     const activityRepository = getRepository(Activities);
-    const activity = await activityRepository.findOne({ where: { id: activitiesId } });
+    const activity = await activityRepository.findOne({ where: { id: activityId } });
     enrollment.activities.push(activity);
-    await this.save(enrollment);
 
-    await Activities.updateAvailableCapacity(activitiesId);
+    await Activities.updateAvailableCapacity(activityId);
+
+    await this.save(enrollment);
 
     return enrollment;
   }
