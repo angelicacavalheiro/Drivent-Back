@@ -8,6 +8,7 @@ import {
   OneToOne,
   ManyToMany,
   JoinTable,
+  getRepository
 } from "typeorm";
 import Address from "@/entities/Address";
 import ReserveData from "@/interfaces/reserve";
@@ -104,6 +105,19 @@ export default class Enrollment extends BaseEntity {
 
   static async getByUserIdWithAddress(userId: number) {
     return await this.findOne({ where: { userId } });
+  }
+
+  static async postUserInscription(userId: number, activityId: number) {
+    const enrollment = await this.findOne({ where: { userId: userId } });
+    const activityRepository = getRepository(Activities);
+    const activity = await activityRepository.findOne({ where: { id: activityId } });
+    enrollment.activities.push(activity);
+
+    await Activities.updateAvailableCapacity(activityId);
+
+    await this.save(enrollment);
+
+    return enrollment;
   }
 
   static async reserveRoom(reserve: ReserveData) {
