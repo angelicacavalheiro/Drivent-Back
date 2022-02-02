@@ -1,4 +1,5 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import Rooms from "./Rooms";
 
 @Entity("hotels")
 export default class Hotels extends BaseEntity {
@@ -19,4 +20,8 @@ export default class Hotels extends BaseEntity {
 
   @Column()
   hasTriple: boolean;
+
+  static async getHotels() {
+    return await this.find();
+  }
 }

@@ -11,6 +11,7 @@ import {
   getRepository
 } from "typeorm";
 import Address from "@/entities/Address";
+import ReserveData from "@/interfaces/reserve";
 import Activities from "./Activity";
 
 @Entity("enrollments")
@@ -117,5 +118,13 @@ export default class Enrollment extends BaseEntity {
     await this.save(enrollment);
 
     return enrollment;
+  }
+
+  static async reserveRoom(reserve: ReserveData) {
+    const enrollment = await this.findOne({ where: { cpf: reserve.cpf } });
+
+    enrollment.roomId = reserve.roomId;
+
+    return this.save(enrollment);
   }
 }
